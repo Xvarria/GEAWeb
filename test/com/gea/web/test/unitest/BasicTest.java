@@ -8,11 +8,12 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration("file:WebContent/WEB-INF/SGCom-servlet.xml")
+@ContextConfiguration("file:WebContent/WEB-INF/GEAWeb-servlet.xml")
 public class BasicTest {
 
 	
 	@Test
     public void tesMethod() {
+		
     }
 }

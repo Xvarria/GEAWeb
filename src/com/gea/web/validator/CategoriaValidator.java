@@ -1,7 +1,7 @@
 package com.gea.web.validator;
 
-import static com.gea.web.model.SGComConstansts.CAMPO_CATEGORIA_CODIGO;
-import static com.gea.web.model.SGComConstansts.*;
+import static com.gea.web.model.GEAWebConstansts.CAMPO_CATEGORIA_CODIGO;
+import static com.gea.web.model.GEAWebConstansts.*;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;

@@ -93,23 +93,23 @@ BEGIN
 	DECLARE V_LECTURA_VALIDA BOOLEAN DEFAULT FALSE;
 	DECLARE V_MEDIDOR_ID INTEGER(10) default 0;
     /*Definicion de Handlres*/
-    DECLARE EXIT HANDLER FOR NOT FOUND SELECT 'No data found';
+    /*DECLARE EXIT HANDLER FOR NOT FOUND SELECT 'No data found';*/
     DECLARE EXIT HANDLER FOR SQLEXCEPTION 
     BEGIN
         ROLLBACK;
     END;
     
     START TRANSACTION;
-    select 'FINISH DECLARE' ;
-    select 'SET API_KEY Y TIMESTAMP' ;
+    /*select 'FINISH DECLARE' ;*/
+    /*select 'SET API_KEY Y TIMESTAMP' ;*/
 	/*Obtiene api key y fecha para procesar*/
     SET v_api_key = JSON_UNQUOTE(JSON_EXTRACT(P_LECTURA, '$.api_key'));
     SET v_timestamp = FROM_UNIXTIME(JSON_EXTRACT(P_LECTURA, '$.timestamp'));
     SET v_data = JSON_EXTRACT(P_LECTURA, '$.data');
     /*Revisa todos los datos del arreglo*/
-    select 'inicia WHILE' ;
+    /*select 'inicia WHILE' ;*/
     WHILE V_INDEX < JSON_LENGTH(v_data) DO
-		select '-SET VALORES' ;
+		/*select '-SET VALORES' ;*/
 		SET V_LECTURA_VALIDA = FALSE;
 		SET V_CURRENT_DATA = JSON_EXTRACT(v_data,CONCAT('$[',V_INDEX,']'));
         set v_volume = JSON_EXTRACT(V_CURRENT_DATA, '$.volume');
@@ -117,7 +117,7 @@ BEGIN
         set V_MEDIDOR_ID = JSON_EXTRACT(V_CURRENT_DATA, '$.measurer_internal_id');
         /*1. Revisa si internal ID existe como medidor*/
         SELECT COUNT(MEDIDOR_ID), MAX(ULTIMA_LECUTRA) INTO V_MEDIDOR_COUNT, V_LECTURA_REF FROM GEA_WEB.MEDIDOR WHERE MEDIDOR_ID = V_MEDIDOR_ID;
-        select CONCAT('-REVISA SI MEDIDOR EXISTE ID;', V_MEDIDOR_ID, 'CONT;', V_MEDIDOR_COUNT, ' REF:', V_LECTURA_REF);
+        /*select CONCAT('-REVISA SI MEDIDOR EXISTE ID;', V_MEDIDOR_ID, 'CONT;', V_MEDIDOR_COUNT, ' REF:', V_LECTURA_REF);*/
         IF V_MEDIDOR_COUNT = 0 THEN 
 			/*select '-- MEDIDOR NO EXISTE - CREA' ;*/
 			/*1.a registra nuevo medidor*/
@@ -134,12 +134,14 @@ BEGIN
         /*Registrar lectura*/
         /*select '-REVISA LECTURA VALIDA' ;*/
 		IF(V_LECTURA_VALIDA) THEN
-			select '-iNSERTA LECTURA' ;
+			/*select '-iNSERTA LECTURA' ;*/
 			INSERT INTO GEA_WEB.LECTURA (MEDIDOR_ID, TEMPERATURA, FECHA_LECTURA, VOLUMEN, PROCESADA) VALUES (V_MEDIDOR_ID, v_temperature, v_timestamp, v_volume, 0);
         END IF;
 		SET V_INDEX = V_INDEX + 1;
 	END WHILE;
-    select 'fin DE WHILE' ;
+    /*select 'fin DE WHILE' ;*/
     COMMIT;
 END //
 DELIMITER ;
+
+GRANT EXECUTE ON PROCEDURE GEA_WEB.SP_REGISTRAR_LECUTRA TO 'GEA_CON';

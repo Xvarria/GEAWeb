@@ -19,7 +19,7 @@ public class AjaxController {
 	@Autowired
 	private CategoriaBO categoriaBO;
 	
-	final static Logger log = Logger.getLogger(CategoriaController.class);
+	final static Logger log = Logger.getLogger(AjaxController.class);
 	
 	@RequestMapping("/ajaxGetCagetorias")
 	public @ResponseBody String ajaxGetCagetorias() throws Exception{

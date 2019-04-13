@@ -8,8 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  
 @Configuration
-@ComponentScan(basePackages = {"com.gea.web"}, 
-excludeFilters = {@Filter(type = FilterType.ANNOTATION,value={EnableWebMvc.class,Controller.class})})
+@ComponentScan(basePackages = { "com.gea.web" }, excludeFilters = {
+		@Filter(type = FilterType.ANNOTATION, value = { EnableWebMvc.class, Controller.class }) })
+
 public class AppConfigTest {
 
 }

@@ -1,0 +1,3 @@
+com/gea/web/test/unitest/BasicTest.class
+com/gea/web/test/config/HibernateConfigurationTest.class
+com/gea/web/test/config/AppConfigTest.class
