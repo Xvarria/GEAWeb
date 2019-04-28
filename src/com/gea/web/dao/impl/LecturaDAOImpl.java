@@ -5,10 +5,8 @@ import javax.persistence.StoredProcedureQuery;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.gea.web.controller.LecturaController;
 import com.gea.web.dao.AbstractDAO;
 import com.gea.web.dao.LecturaDAO;
 import com.gea.web.model.response.CompletationCode;
@@ -35,17 +33,8 @@ public class LecturaDAOImpl extends AbstractDAO implements LecturaDAO {
 	 */
 	public ProcesoResponse registraLectura(JsonNode lecturaRequest) {
 		ProcesoResponse response = new ProcesoResponse();
-		try {
-			/*Session session = entityManager.unwrap(Session.class);
-			ProcedureCall call = session.createStoredProcedureCall("SP_REGISTRAR_LECUTRA");
-			call.registerParameter("P_LECTURA", String.class, ParameterMode.IN).bindValue(lecturaRequest.toString());
-			call.getOutputs().getCurrent();*/
-			//Query query = this.entityManager..createSQLQuery(SP_REGISTRAR_LECUTRA);
-			//query.registerStoredProcedureParameter("P_LECTURA", String.class, ParameterMode.IN);
-			//query.setParameter("P_LECTURA", lecturaRequest.toString());
-			//List result = query.list();//query.execute();
-			
-			StoredProcedureQuery query = entityManager.createStoredProcedureQuery("SP_REGISTRAR_LECUTRA");
+		try {			
+			StoredProcedureQuery query = entityManager.createStoredProcedureQuery(SP_REGISTRAR_LECUTRA);
 			query.registerStoredProcedureParameter("P_LECTURA", String.class, ParameterMode.IN);
 			query.setParameter("P_LECTURA", lecturaRequest.toString());
 			query.execute();
@@ -61,17 +50,4 @@ public class LecturaDAOImpl extends AbstractDAO implements LecturaDAO {
 		}
 		return response;
 	}
-	
-	public void testSp1() {
-		StoredProcedureQuery query = entityManager.createStoredProcedureQuery("count_comments")
-				.registerStoredProcedureParameter("postId", Long.class, ParameterMode.IN)
-				.registerStoredProcedureParameter("commentCount", Long.class, ParameterMode.OUT)
-				.setParameter("postId", 1L);
-		
-		query.execute();
-
-		Long commentCount = (Long) query.getOutputParameterValue("commentCount");
-		System.out.println("Restultado -> 0" + commentCount);
-	}
-
 }

@@ -20,7 +20,7 @@
 		<!-- Dependencies versions -->
 		<spring.version>4.3.3.RELEASE</spring.version>
 		<hibernate.version>5.1.0.Final</hibernate.version>
-		<jackson.version>2.8.7</jackson.version>
+		<jackson.version>2.9.5</jackson.version>
 		<mysql-connector.version>6.0.5</mysql-connector.version>
 		<jstl.version>1.2</jstl.version>
 		<log4j.version>1.2.17</log4j.version>
@@ -30,6 +30,7 @@
 	</properties>
 
 	<build>
+		<finalName>${groupId}##${version}</finalName>
 		<sourceDirectory>src</sourceDirectory>
 		<testSourceDirectory>test</testSourceDirectory>
 		<resources>
@@ -51,33 +52,6 @@
 				</configuration>
 			</plugin>
 			
-        <plugin>
-            <groupId>org.bsc.maven</groupId>
-            <artifactId>maven-processor-plugin</artifactId>
-            <version>${maven-processor.version}</version>
-            <executions>
-                <execution>
-                    <id>process</id>
-                    <goals>
-                        <goal>process</goal>
-                    </goals>
-                    <phase>generate-sources</phase>
-                    <configuration>
-                        <processors>
-                            <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
-                        </processors>
-                    </configuration>
-                </execution>
-            </executions>
-            <dependencies>
-                <dependency>
-                    <groupId>org.hibernate</groupId>
-                    <artifactId>hibernate-jpamodelgen</artifactId>
-                    <version>${hibernate.version}</version>
-                </dependency>
-            </dependencies>
-        </plugin>
-
 			<!-- Plugin for WAR generation -->
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>

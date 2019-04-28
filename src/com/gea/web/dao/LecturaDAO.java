@@ -17,5 +17,4 @@ public interface LecturaDAO {
 	 */
 	public ProcesoResponse registraLectura(JsonNode lecturaRequest);
 	
-	void testSp1();
 }

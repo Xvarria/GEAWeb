@@ -1,5 +1,7 @@
 package com.gea.web.test.unitest;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,7 @@ public class BasicTest {
 
 	
 	@Test
-    public void tesMethod() {
-		lecturaDAO.testSp1();
+    public void testAssertions() {
+		assertTrue(true);
     }
 }

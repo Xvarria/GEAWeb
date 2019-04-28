@@ -23,13 +23,12 @@ com/gea/web/model/Subcategoria.class
 com/gea/web/model/request/LecturaMedidorRequest.class
 com/gea/web/service/CategoriaBO.class
 com/gea/web/model/response/ReasonCode.class
-com/gea/web/model/Categoria_.class
 com/gea/web/model/json/persistence/AbstractJsonSqlTypeDescriptor$1.class
 com/gea/web/model/json/persistence/JsonTypeDescriptor$1.class
-com/gea/web/model/Subcategoria_.class
 com/gea/web/model/request/LecturaRequest.class
 com/gea/web/form/ElementoLink.class
 com/gea/web/validator/ArticuloValidator.class
+com/gea/web/controller/IndexController.class
 com/gea/web/dao/LecturaDAO.class
 com/gea/web/model/Categoria.class
 com/gea/web/model/json/persistence/JsonStringType.class

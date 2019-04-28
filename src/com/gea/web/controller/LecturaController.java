@@ -52,13 +52,4 @@ public class LecturaController {
 		LecturaResponse response = new LecturaResponse(procesoReponse, initTime, finishTime);
 		return response;
 	}
-	
-	@RequestMapping(value = "/service/testLectura", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody LecturaResponse testLectura() {
-		long initTime = Calendar.getInstance().getTimeInMillis();
-		log.debug("Llega acá");
-		long finishTime = Calendar.getInstance().getTimeInMillis();
-		return new LecturaResponse(ReasonCode.SUCCESS, CompletationCode.SUCCESS, initTime, finishTime);
-	}
-
 }

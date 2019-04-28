@@ -18,11 +18,11 @@
 /home/mchavarria/proyectos/GEAWeb/src/com/gea/web/model/json/persistence/JsonTypeDescriptor.java
 /home/mchavarria/proyectos/GEAWeb/src/com/gea/web/model/Subcategoria.java
 /home/mchavarria/proyectos/GEAWeb/src/com/gea/web/model/response/ReasonCode.java
-/home/mchavarria/proyectos/GEAWeb/target/generated-sources/apt/com/gea/web/model/Subcategoria_.java
 /home/mchavarria/proyectos/GEAWeb/src/com/gea/web/service/impl/UtilBO.java
 /home/mchavarria/proyectos/GEAWeb/src/com/gea/web/dao/LecturaDAO.java
 /home/mchavarria/proyectos/GEAWeb/src/com/gea/web/model/response/CompletationCode.java
 /home/mchavarria/proyectos/GEAWeb/src/com/gea/web/dao/AbstractDAO.java
+/home/mchavarria/proyectos/GEAWeb/src/com/gea/web/controller/IndexController.java
 /home/mchavarria/proyectos/GEAWeb/src/com/gea/web/config/HibernateConfiguration.java
 /home/mchavarria/proyectos/GEAWeb/src/com/gea/web/controller/LecturaController.java
 /home/mchavarria/proyectos/GEAWeb/src/com/gea/web/form/CategoriaForm.java
@@ -33,5 +33,4 @@
 /home/mchavarria/proyectos/GEAWeb/src/com/gea/web/config/AppConfig.java
 /home/mchavarria/proyectos/GEAWeb/src/com/gea/web/model/response/LecturaResponse.java
 /home/mchavarria/proyectos/GEAWeb/src/com/gea/web/model/json/persistence/JacksonUtil.java
-/home/mchavarria/proyectos/GEAWeb/target/generated-sources/apt/com/gea/web/model/Categoria_.java
 /home/mchavarria/proyectos/GEAWeb/src/com/gea/web/model/json/persistence/AbstractJsonSqlTypeDescriptor.java
