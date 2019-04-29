@@ -66,7 +66,6 @@ ALTER TABLE GEA_WEB.LECTURA_DIARIA ADD CONSTRAINT FK_LECTURA_DIARIA_MEDIDOR FORE
 
 
 DROP PROCEDURE IF EXISTS GEA_WEB.SP_REGISTRAR_LECUTRA;
-DELIMITER //
 /*
 Autor: Marcos Chavarria Fallas
 Fecha: 03/04/2019
@@ -74,6 +73,7 @@ Revisa el JSON proveniente de los medidores, por cada lectura,
 revisa los medidores, si el medidor existe lo crea, sino actualiza la última lecutura para el día actual
 User/Schema gea_web.
 */
+DELIMITER //
 CREATE PROCEDURE GEA_WEB.SP_REGISTRAR_LECUTRA(IN P_LECTURA JSON)
 BEGIN
 	/*cONSTANTES*/
@@ -82,7 +82,7 @@ BEGIN
     /*VARIABLES select json*/
 	DECLARE v_api_key VARCHAR(36) DEFAULT '';
     DECLARE v_timestamp TIMESTAMP DEFAULT NULL;
-    DECLARE v_volume FLOAT (14,4) DEFAULT 0;
+    DECLARE v_volumen FLOAT (14,4) DEFAULT 0;
     DECLARE v_temperature FLOAT (14,4) DEFAULT 0;
     DECLARE v_data JSON;
     DECLARE V_CURRENT_DATA JSON;
@@ -100,42 +100,39 @@ BEGIN
     END;
     
     START TRANSACTION;
-    select 'FINISH DECLARE' ;
-    select 'SET API_KEY Y TIMESTAMP' ;
 	/*Obtiene api key y fecha para procesar*/
     SET v_api_key = JSON_UNQUOTE(JSON_EXTRACT(P_LECTURA, '$.api_key'));
     SET v_timestamp = FROM_UNIXTIME(JSON_EXTRACT(P_LECTURA, '$.timestamp'));
     SET v_data = JSON_EXTRACT(P_LECTURA, '$.data');
     /*Revisa todos los datos del arreglo*/
-    select 'inicia WHILE';
     WHILE V_INDEX < JSON_LENGTH(v_data) DO
-		select '-SET VALORES';
 		SET V_LECTURA_VALIDA = FALSE;
 		SET V_CURRENT_DATA = JSON_EXTRACT(v_data,CONCAT('$[',V_INDEX,']'));
-        set v_volume = JSON_EXTRACT(V_CURRENT_DATA, '$.volume');
+        set v_volumen = JSON_EXTRACT(V_CURRENT_DATA, '$.volumen');
 		set v_temperature = JSON_EXTRACT(V_CURRENT_DATA, '$.temperature');
         set V_MEDIDOR_ID = JSON_EXTRACT(V_CURRENT_DATA, '$.measurer_internal_id');
         /*1. Revisa si internal ID existe como medidor*/
-        SELECT COUNT(MEDIDOR_ID), MAX(ULTIMA_LECUTRA) INTO V_MEDIDOR_COUNT, V_LECTURA_REF FROM GEA_WEB.MEDIDOR WHERE MEDIDOR_ID = V_MEDIDOR_ID;
+        /*2. */
+        SELECT COUNT(MEDIDOR_ID), IFNULL(MAX(ULTIMA_LECUTRA),0)  INTO V_MEDIDOR_COUNT, V_LECTURA_REF FROM GEA_WEB.MEDIDOR WHERE MEDIDOR_ID = V_MEDIDOR_ID;
         select CONCAT('-REVISA SI MEDIDOR EXISTE ID;', V_MEDIDOR_ID, 'CONT;', V_MEDIDOR_COUNT, ' REF:', V_LECTURA_REF);
         IF V_MEDIDOR_COUNT = 0 THEN 
 			select '-- MEDIDOR NO EXISTE - CREA' ;
 			/*1.a registra nuevo medidor*/
-            INSERT INTO GEA_WEB.MEDIDOR(MEDIDOR_ID, FECHA_INCLUSION, ULTIMA_LECUTRA, FECHA_ULTIMA_LECTURA) VALUES (V_MEDIDOR_ID, v_timestamp, v_volume, v_timestamp);
-        ELSEIF (V_LECTURA_REF <= v_volume) THEN
+            INSERT INTO GEA_WEB.MEDIDOR(MEDIDOR_ID, FECHA_INCLUSION, ULTIMA_LECUTRA, FECHA_ULTIMA_LECTURA) VALUES (V_MEDIDOR_ID, v_timestamp, v_volumen, v_timestamp);
+        ELSEIF (V_LECTURA_REF <= v_volumen) THEN
 			select '--MEDIDOR EXISTE, ACTUALIZA' ;
 			/*1.b Actualiza registro de medidor*/
-            UPDATE GEA_WEB.MEDIDOR SET FECHA_ULTIMA_LECTURA = v_timestamp, ULTIMA_LECUTRA = v_volume WHERE MEDIDOR_ID = V_MEDIDOR_ID;
+            UPDATE GEA_WEB.MEDIDOR SET FECHA_ULTIMA_LECTURA = v_timestamp, ULTIMA_LECUTRA = v_volumen WHERE MEDIDOR_ID = V_MEDIDOR_ID;
         else
 			select '--ERROR LECUTRA NEGATIVA' ;
 			INSERT INTO GEA_WEB.ERROR_LECTURA (FECHA_LECTURA, ERROR_CATALAGO_ID, REQUEST) VALUES (v_timestamp, C_LECTURA_NEGATIVA, V_CURRENT_DATA);
         END IF;
-        SET V_LECTURA_VALIDA = (V_MEDIDOR_COUNT = 0  OR V_LECTURA_REF <= v_volume);
+        SET V_LECTURA_VALIDA = (V_MEDIDOR_COUNT = 0  OR V_LECTURA_REF <= v_volumen);
         /*Registrar lectura*/
         select '-REVISA LECTURA VALIDA' ;
 		IF(V_LECTURA_VALIDA) THEN
 			select '-iNSERTA LECTURA' ;
-			INSERT INTO GEA_WEB.LECTURA (MEDIDOR_ID, TEMPERATURA, FECHA_LECTURA, VOLUMEN, PROCESADA) VALUES (V_MEDIDOR_ID, v_temperature, v_timestamp, v_volume, 0);
+			INSERT INTO GEA_WEB.LECTURA (MEDIDOR_ID, TEMPERATURA, FECHA_LECTURA, VOLUMEN, PROCESADA) VALUES (V_MEDIDOR_ID, v_temperature, v_timestamp, v_volumen, 0);
         END IF;
 		SET V_INDEX = V_INDEX + 1;
 	END WHILE;
