@@ -2,10 +2,11 @@ package com.gea.web.form;
 
 import java.io.InvalidClassException;
 
+import com.gea.web.form.base.BaseForm;
 import com.gea.web.model.Categoria;
-import com.gea.web.model.FormAcciones;
+import com.gea.web.model.constant.FormAcciones;
 
-public class CategoriaForm extends BaseFormInfo{
+public class CategoriaForm extends BaseForm{
 	
 	private String categoriaId;
 	private String codigo;
@@ -17,7 +18,7 @@ public class CategoriaForm extends BaseFormInfo{
 
 	public CategoriaForm(FormAcciones accion, Categoria categoria) {
 		super();
-		this.setAccion(accion.getDesc());
+		this.setAccion(accion.toString());
 		this.categoriaId = String.valueOf(categoria.getCategoriaId());
 		this.codigo = categoria.getCodigo();
 		this.descripcion = categoria.getDescripcion();

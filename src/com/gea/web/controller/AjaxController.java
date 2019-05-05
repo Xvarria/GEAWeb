@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gea.web.model.Categoria;
-import com.gea.web.service.CategoriaBO;
+import com.gea.web.model.Medidor;
+import com.gea.web.service.MedidorBO;
 
 @Controller
 public class AjaxController {
 	
 	@Autowired
-	private CategoriaBO categoriaBO;
+	private MedidorBO medidorBo;
 	
 	final static Logger log = Logger.getLogger(AjaxController.class);
 	
@@ -26,10 +26,10 @@ public class AjaxController {
 		log.info("Llamado asincrónico para obtener Categorias");
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			Collection<Categoria> categorias = this.categoriaBO.listCategorias();
-			return mapper.writeValueAsString(categorias);
+			Collection<Medidor> medidores = this.medidorBo.listMedidor();
+			return mapper.writeValueAsString(medidores);
 		} catch (JsonProcessingException e) {
-			log.info("Error en llamado asincrónico para obtener Categorias", e);
+			log.info("Error en llamado asincrónico para obtener medidores", e);
 			throw e;
 		}
 	}
