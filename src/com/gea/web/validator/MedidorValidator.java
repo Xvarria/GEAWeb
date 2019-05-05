@@ -9,6 +9,7 @@ import org.springframework.validation.Validator;
 
 import com.gea.web.form.MedidorForm;
 import com.gea.web.model.Medidor;
+import com.gea.web.model.exception.GeaWebException;
 import com.gea.web.service.MedidorBO;
 
 @Component
@@ -36,6 +37,14 @@ public class MedidorValidator implements Validator {
 		
 		MedidorForm command = (MedidorForm) target;
 		Medidor medidor = command.getMedidor();
+		try {
+			Medidor otroMedidor = medidorBO.getMedidorById(0);
+			System.out.println(otroMedidor);
+		} catch (GeaWebException e1) {
+			System.out.println(medidor);
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		if (StringUtils.isNotEmpty("")){
 			try{
 				errors.rejectValue(FIELD_NAME, ERROR_KEY);

@@ -1,8 +1,12 @@
 package com.gea.web.model.constant;
 
 public final class GeaWebConstants {
-
-	public final static String VIEW_MEDIDOR_LISTAR = "medidorList";
+	
+	public final static String HEARTBEAT_MESSAGE = "heartbeatMessage";
+	public final static String HEARTBEAT_DEFAULT_MESSAGE = "GEAWeb funcionando.[mnc]";
+	
+	//Medidores
+	public static final String VIEW_MEDIDOR_LISTAR = "medidorList";
 	public static final String VIEW_MEDIDOR_FORM = "medidorForm";
 
     public final static String MEDIDOR_ERROR_NO_EXISTE = "medidor.error.noExiste";
@@ -18,8 +22,6 @@ public final class GeaWebConstants {
     public final static String MEDIDOR_ERROR_PARAM = "medidor.error.param";
     public final static String MEDIDOR_ERROR_NOT_FOUND = "medidor.error.notFound";
     public final static String MEDIDOR_ERROR_GET = "medidor.error.get";
-
-
 	
 	private GeaWebConstants(){};
 }
