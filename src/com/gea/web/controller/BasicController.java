@@ -1,5 +1,7 @@
 package  com.gea.web.controller;
 
+import static com.gea.web.model.constant.GeaWebConstants.MEDIDOR_ERROR_PARAM;
+
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,7 @@ import org.springframework.web.servlet.view.AbstractView;
 
 import com.gea.web.form.base.BaseForm;
 import com.gea.web.model.constant.FormAcciones;
+import com.gea.web.model.exception.ControllerException;
 import com.gea.web.service.PropertyMessageBO;
 
 public class BasicController extends AbstractView {
@@ -73,5 +76,19 @@ public class BasicController extends AbstractView {
 	@Override
 	protected void renderMergedOutputModel(Map arg0, HttpServletRequest arg1, HttpServletResponse arg2) throws Exception {
 		// Method overrided
+	}
+	
+	/**
+	 * Converts String parameter into numeric id
+	 * @param medidorIdStr
+	 * @return
+	 * @throws ControllerException
+	 */
+	protected int getIdDesdeParametro(String medidorIdStr) throws ControllerException {
+		try {
+			return Integer.parseInt(medidorIdStr);
+		} catch (NumberFormatException e) {
+			throw new ControllerException(MEDIDOR_ERROR_PARAM);
+		}
 	}
 }

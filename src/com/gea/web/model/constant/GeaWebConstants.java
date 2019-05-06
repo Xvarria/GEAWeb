@@ -8,6 +8,7 @@ public final class GeaWebConstants {
 	//Medidores
 	public static final String VIEW_MEDIDOR_LISTAR = "medidorList";
 	public static final String VIEW_MEDIDOR_FORM = "medidorForm";
+	public static final String VIEW_MEDIDOR_DETALLE = "medidorDetalle";
 
     public final static String MEDIDOR_ERROR_NO_EXISTE = "medidor.error.noExiste";
 

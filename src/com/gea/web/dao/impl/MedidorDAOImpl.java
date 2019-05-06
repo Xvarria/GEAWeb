@@ -78,10 +78,14 @@ public class MedidorDAOImpl extends AbstractDAO implements MedidorDAO {
 	 */
 	@Override
 	public List<Medidor> listMedidor() throws GeaWebException {
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Medidor> criteria = builder.createQuery(Medidor.class);
-		Root<Medidor> root = criteria.from(Medidor.class);
-		criteria.select(root);
-		return entityManager.createQuery(criteria).getResultList();		
+		try {
+			CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+			CriteriaQuery<Medidor> criteria = builder.createQuery(Medidor.class);
+			Root<Medidor> root = criteria.from(Medidor.class);
+			criteria.select(root);
+			return entityManager.createQuery(criteria).getResultList();
+		} catch (Exception e) {
+			throw new GeaWebException(e);
+		}		
 	}
 }

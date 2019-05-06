@@ -1,15 +1,15 @@
 package com.gea.web.controller;
 
-import static com.gea.web.model.constant.GeaWebConstants.MEDIDOR_ERROR_ELIMINAR;
-import static com.gea.web.model.constant.GeaWebConstants.MEDIDOR_ERROR_CREAR;
 import static com.gea.web.model.constant.GeaWebConstants.MEDIDOR_ERROR_ACTUALIZAR;
+import static com.gea.web.model.constant.GeaWebConstants.MEDIDOR_ERROR_CREAR;
+import static com.gea.web.model.constant.GeaWebConstants.MEDIDOR_ERROR_ELIMINAR;
 import static com.gea.web.model.constant.GeaWebConstants.MEDIDOR_ERROR_GET;
 import static com.gea.web.model.constant.GeaWebConstants.MEDIDOR_ERROR_NOT_FOUND;
 import static com.gea.web.model.constant.GeaWebConstants.MEDIDOR_ERROR_NO_EXISTE;
+import static com.gea.web.model.constant.GeaWebConstants.MEDIDOR_SUCCESS_ACTUALIZAR;
 import static com.gea.web.model.constant.GeaWebConstants.MEDIDOR_SUCCESS_CREAR;
 import static com.gea.web.model.constant.GeaWebConstants.MEDIDOR_SUCCESS_ELIMINAR;
-import static com.gea.web.model.constant.GeaWebConstants.MEDIDOR_SUCCESS_ACTUALIZAR;
-import static com.gea.web.model.constant.GeaWebConstants.MEDIDOR_ERROR_PARAM;
+import static com.gea.web.model.constant.GeaWebConstants.VIEW_MEDIDOR_DETALLE;
 import static com.gea.web.model.constant.GeaWebConstants.VIEW_MEDIDOR_FORM;
 import static com.gea.web.model.constant.GeaWebConstants.VIEW_MEDIDOR_LISTAR;
 
@@ -29,9 +29,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.gea.web.form.MedidorForm;
 import com.gea.web.model.Medidor;
+import com.gea.web.model.constant.FormAcciones;
 import com.gea.web.model.exception.ControllerException;
 import com.gea.web.model.exception.GeaWebException;
-import com.gea.web.model.constant.FormAcciones;
 import com.gea.web.service.MedidorBO;
 import com.gea.web.validator.MedidorValidator;
 
@@ -48,9 +48,9 @@ public class MedidorController extends BasicController {
 		
 	@RequestMapping(value="/**/web/listarMedidor.do")
 	public ModelAndView crearMedidor(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("command") MedidorForm command) throws Exception {
-		log.info("### INICIAR crearMedidor.do ###");
+		log.info("### INICIAR listarMedidor.do ###");
 		ModelAndView listModelView = this.nextModelView(VIEW_MEDIDOR_LISTAR, command, FormAcciones.LISTAR);
-		log.info("### END crearMedidors.do ###");
+		log.info("### END listarMedidor.do ###");
 		return listModelView;
 	}
 	
@@ -126,18 +126,15 @@ public class MedidorController extends BasicController {
 		return nextView;
 	}	
 	
-	/**
-	 * Converts String parameter into numeric id
-	 * @param medidorIdStr
-	 * @return
-	 * @throws ControllerException
-	 */
-	private int getIdDesdeParametro(String medidorIdStr) throws ControllerException {
-		try {
-			return Integer.parseInt(medidorIdStr);
-		} catch (NumberFormatException e) {
-			throw new ControllerException(MEDIDOR_ERROR_PARAM);
-		}
+	@RequestMapping(value = "/**/web/mostrarMedidor.do", method = RequestMethod.GET)
+	public ModelAndView mmostrarMedidorGet(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("command") MedidorForm command, @RequestParam(value = "medidorId", required=true)String medidorIdStr) throws Exception{
+		log.info("### INICIAR modificarMedidor.do GET ###");
+		//Get the Medidor and populates the form
+		Medidor medidor = this.getMedidorFormParamater(medidorIdStr);			
+		command.setMedidor(medidor);
+		ModelAndView formModelView = this.nextModelView(VIEW_MEDIDOR_DETALLE, command, FormAcciones.MOSTRAR);
+		log.info("### FINALIZAR modificarMedidor.do GET ###");
+		return formModelView;
 	}
 	
 	/**

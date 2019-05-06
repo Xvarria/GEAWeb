@@ -5,13 +5,21 @@ import com.gea.web.model.Medidor;
 
 public class MedidorForm extends BaseForm {
 	
-	//TODO add properties and methods
+	private Medidor medidor;
 
-	//If required overwrite this methods
-	public Medidor getMedidor (){
-		return null;
+	/**
+	 * @return get Medidor
+	 */
+	public Medidor getMedidor() {
+		return medidor;
 	}
+
+	/**
+	 * @param set Medidor
+	 */
+	public void setMedidor(Medidor medidor) {
+		this.medidor = medidor;
+	}
+
 	
-	public void setMedidor (Medidor medidor){
-	}
 }

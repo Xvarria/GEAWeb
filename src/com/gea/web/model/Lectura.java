@@ -2,6 +2,7 @@ package com.gea.web.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,13 +11,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "LECTURA")
 public class Lectura {
 
-	private int categoriaId;
+	private int lecturaId;
 	private Medidor medidor;
-	private float termperatura;
+	private float temperatura;
 	private Date fechaLectura;
 	private String error;
 	private float volumen;
@@ -24,14 +27,16 @@ public class Lectura {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int getCategoriaId() {
-		return categoriaId;
+	@Column(name = "LECTURA_ID")
+	public int getLecturaId() {
+		return lecturaId;
 	}
 
-	public void setCategoriaId(int categoriaId) {
-		this.categoriaId = categoriaId;
+	public void setLecturaId(int lecturaId) {
+		this.lecturaId = lecturaId;
 	}
 
+	@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "MEDIDOR_ID")
 	public Medidor getMedidor() {
@@ -42,14 +47,16 @@ public class Lectura {
 		this.medidor = medidor;
 	}
 
-	public float getTermperatura() {
-		return termperatura;
+	@Column(name = "TEMPERATURA")
+	public float getTemperatura() {
+		return temperatura;
 	}
 
-	public void setTermperatura(float termperatura) {
-		this.termperatura = termperatura;
+	public void setTemperatura(float temperatura) {
+		this.temperatura = temperatura;
 	}
-
+	
+	@Column(name = "FECHA_LECTURA")
 	public Date getFechaLectura() {
 		return fechaLectura;
 	}
@@ -58,6 +65,7 @@ public class Lectura {
 		this.fechaLectura = fechaLectura;
 	}
 
+	@Column(name = "ERROR")
 	public String getError() {
 		return error;
 	}
@@ -66,6 +74,7 @@ public class Lectura {
 		this.error = error;
 	}
 
+	@Column(name = "VOLUMEN")
 	public float getVolumen() {
 		return volumen;
 	}
@@ -86,12 +95,12 @@ public class Lectura {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + categoriaId;
 		result = prime * result + ((error == null) ? 0 : error.hashCode());
 		result = prime * result + ((fechaLectura == null) ? 0 : fechaLectura.hashCode());
+		result = prime * result + lecturaId;
 		result = prime * result + ((medidor == null) ? 0 : medidor.hashCode());
 		result = prime * result + (procesada ? 1231 : 1237);
-		result = prime * result + Float.floatToIntBits(termperatura);
+		result = prime * result + Float.floatToIntBits(temperatura);
 		result = prime * result + Float.floatToIntBits(volumen);
 		return result;
 	}
@@ -105,8 +114,6 @@ public class Lectura {
 		if (getClass() != obj.getClass())
 			return false;
 		Lectura other = (Lectura) obj;
-		if (categoriaId != other.categoriaId)
-			return false;
 		if (error == null) {
 			if (other.error != null)
 				return false;
@@ -117,6 +124,8 @@ public class Lectura {
 				return false;
 		} else if (!fechaLectura.equals(other.fechaLectura))
 			return false;
+		if (lecturaId != other.lecturaId)
+			return false;
 		if (medidor == null) {
 			if (other.medidor != null)
 				return false;
@@ -124,7 +133,7 @@ public class Lectura {
 			return false;
 		if (procesada != other.procesada)
 			return false;
-		if (Float.floatToIntBits(termperatura) != Float.floatToIntBits(other.termperatura))
+		if (Float.floatToIntBits(temperatura) != Float.floatToIntBits(other.temperatura))
 			return false;
 		if (Float.floatToIntBits(volumen) != Float.floatToIntBits(other.volumen))
 			return false;
@@ -134,12 +143,12 @@ public class Lectura {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Lectura [categoriaId=");
-		builder.append(categoriaId);
+		builder.append("Lectura [lecturaId=");
+		builder.append(lecturaId);
 		builder.append(",/n medidor=");
 		builder.append(medidor);
-		builder.append(",/n termperatura=");
-		builder.append(termperatura);
+		builder.append(",/n temperatura=");
+		builder.append(temperatura);
 		builder.append(",/n fechaLectura=");
 		builder.append(fechaLectura);
 		builder.append(",/n error=");

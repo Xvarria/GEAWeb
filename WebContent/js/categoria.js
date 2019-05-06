@@ -1,7 +1,7 @@
 function initDatatableOnList(){
 	categoriaTableInit=false;
 	cTable=null;
-	$.ajax('../ajaxGetCagetorias.do',{
+	$.ajax('../ajax/getCagetorias.do',{
 		success: function(data) {
 			refreshCategoriaTable(data)
 		},

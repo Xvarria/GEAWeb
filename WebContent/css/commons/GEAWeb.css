@@ -23,3 +23,7 @@
 input[readonly]{
     background-color:#D6D8DD;
 }
+
+div.hidden{
+	display: none;
+}
