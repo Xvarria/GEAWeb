@@ -36,7 +36,7 @@ function refreshLecturaTable(data) {
 			}, {
 				data : 'temperatura'
 			}, {
-				data : 'fechaLectura'
+				data : 'fechaLecturaFmt'
 			}, {
 				data : 'volumen'
 			}, {
