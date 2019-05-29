@@ -53,20 +53,16 @@
 					<c:out value = "${command.medidor.ultimaLectura}"/>
 				</div>
 			</div>
-			<div class="row upperSpace">
-				<div class="col-md-10 offset-md-1">
-					<input type="button" class="btn-primary" value="Refrescar">
-				</div>
-			</div>
 		</div>			
 		<div class="container">	
 			<div class="row">
 				<div class="col-md-10 offset-md-1">
-					<fmt:message key="detalleLecutra"/><br>
-					<input type="button" class="btn-primary" value="Mostrar/Ocultar"/>
+					<fmt:message key="detalleLectura"/><br>
+					<input type="button" class="btn-primary" value="Mostrar/Ocultar" onclick="javascript:mostarOcultarDetalle()"/>
+					<input id="estadoDetalle" value="visible" type="hidden" />
 				</div>
 			</div>					
-			<div class="row" name="detalleLecutra">
+			<div class="row" name="detalleLectura">
 				<div class="col-md-10 offset-md-1">
 					<table id="LecturaTable">
 						<thead>
@@ -83,9 +79,9 @@
 					</table>
 				</div>
 			</div>
-			<div class="row upperSpace" name="detalleLecutra"temp>
+			<div class="row upperSpace" name="detalleLectura"temp>
 				<div class="col-md-10 offset-md-1">
-					<input type="button" class="btn-primary" value="Refrescar">
+					<input type="button" class="btn-primary" value="Refrescar" onclick="javascript:refrescarDatos()">
 				</div>
 			</div>			
 		</div>

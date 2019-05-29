@@ -1,7 +1,8 @@
+var medidorTableInit=false;
+cTable=null;
+
 function initDatatableOnList(){
-	var  medidorId = $("#medidorId").val();
-	medidorTableInit=false;
-	cTable=null;
+	var medidorId = $("#medidorId").val();
 	$.ajax('../ajax/getLecturaList.do?medidorId='+medidorId,{
 		success: function(data) {
 			refreshLecturaTable(data)
@@ -56,4 +57,20 @@ function refreshLecturaTable(data) {
 		console.log("REFRESH refreshLecturaTable");
 	}
 	console.log("FINISH refreshLecturaTable");
+}
+
+function refrescarDatos(){
+	initDatatableOnList();
+}
+
+function mostarOcultarDetalle(){
+	let estadoActual = $('#estadoDetalle').val();
+	if (estadoActual == 'visible'){
+		$('div[name="detalleLectura"]').hide();
+		$('#estadoDetalle').val('invisible');
+	}else{
+		$('div[name="detalleLectura"]').show();
+		$('#estadoDetalle').val('visible');		
+	}
+	initDatatableOnList();
 }

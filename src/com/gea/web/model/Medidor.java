@@ -76,7 +76,6 @@ public class Medidor {
 		this.lecturas = lecturas;
 	}
 	
-	
 	@Transient
 	public String getFechaInclusionFmt() {
 		return UtilBO.getFechaFmt(this.fechaInclusion);

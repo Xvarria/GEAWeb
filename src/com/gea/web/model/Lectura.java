@@ -10,8 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gea.web.service.impl.UtilBO;
 
 @Entity
 @Table(name = "LECTURA")
@@ -90,6 +92,12 @@ public class Lectura {
 	public void setProcesada(boolean procesada) {
 		this.procesada = procesada;
 	}
+	
+	@Transient
+	public String getFechaLecturaFmt() {
+		return UtilBO.getFechaFmt(this.fechaLectura);
+	}
+	
 
 	@Override
 	public int hashCode() {
